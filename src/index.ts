@@ -35,7 +35,10 @@ export default function useExtendedLogger(
                         [AttributeName.NAME]: operationAst.name?.value || 'anonymous',
                         [AttributeName.TRACE_ID]: args.contextValue?.propagator?.traceId,
                         [AttributeName.USER]:
-                            args.contextValue?.currentUser?.name || args.contextValue?.currentUser,
+                            args.contextValue?.currentUser?.id ||
+                            args.contextValue?.currentUser?.email ||
+                            args.contextValue?.currentUser?.name ||
+                            args.contextValue?.currentUser,
                         ...(pluginOptions.operations?.document
                             ? {
                                   [AttributeName.DOCUMENT]: document,
@@ -92,7 +95,10 @@ export default function useExtendedLogger(
                 [AttributeName.FIELD_NAME]: payload.fieldName,
                 [AttributeName.TRACE_ID]: payload.context?.propagator?.traceId,
                 [AttributeName.USER]:
-                    payload.context?.currentUser?.name || payload.context?.currentUser,
+                    payload.context?.currentUser?.id ||
+                    payload.context?.currentUser?.email ||
+                    payload.context?.currentUser?.name ||
+                    payload.context?.currentUser,
                 ...(pluginOptions.delegations.args
                     ? {
                           [AttributeName.ARGS]: payload.key
