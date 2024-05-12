@@ -112,7 +112,7 @@ export default function useExtendedLogger(
                 if (pluginOptions.delegations?.error && result instanceof Error) {
                     toLog(logger, LogLevel.Error, {
                         ...message,
-                        [AttributeName.MESSAGE]: result,
+                        [AttributeName.MESSAGE]: result?.message || result.toString(),
                     });
                 } else if (pluginOptions.delegations?.success && result) {
                     toLog(logger, LogLevel.Info, {
